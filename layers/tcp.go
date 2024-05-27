@@ -135,7 +135,7 @@ func (t *TCP) MarshalJSON() ([]byte, error) {
 	payloadString, err := json.Marshal(t.Payload)
 
 	if err != nil {
-		return []byte, err
+		return []byte{}, err
 	}
 
 	return json.Marshal(&struct {
