@@ -137,7 +137,7 @@ func (t *TCP) MarshalJSON() ([]byte, error) {
 		PayloadString string `json:"payload_string"`
 	}{
 		Alias:       (Alias)(*t),
-		PayloadString: fmt.Sprintf("%v", t.Payload),
+		PayloadString: fmt.Sprintf("%s", string(t.Payload)),
 	})
 }
 
