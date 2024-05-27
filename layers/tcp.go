@@ -139,10 +139,10 @@ func (t *TCP) MarshalJSON() ([]byte, error) {
 	return json.Marshal(
 		&struct {
 			Alias
-			PayloadString string `json:"payload_string"`
+			PayloadString string
 		}{
 			Alias:         (Alias)(*t),
-			PayloadString: fmt.Sprintf("%+v\n", string(t.Payload)),
+			PayloadString: fmt.Sprintf("%v\n", string(t.Payload)),
 		},
 	)
 }
