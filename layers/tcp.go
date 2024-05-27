@@ -110,19 +110,23 @@ func (t TCPOption) String() string {
 	switch t.OptionType {
 	case TCPOptionKindMSS:
 		if len(t.OptionData) >= 2 {
-			return fmt.Sprintf("TCPOption(%s:%v%s)",
+			return fmt.Sprintf(
+				"TCPOption(%s:%v%s)",
 				t.OptionType,
 				binary.BigEndian.Uint16(t.OptionData),
-				hd)
+				hd,
+			)
 		}
 
 	case TCPOptionKindTimestamps:
 		if len(t.OptionData) == 8 {
-			return fmt.Sprintf("TCPOption(%s:%v/%v%s)",
+			return fmt.Sprintf(
+				"TCPOption(%s:%v/%v%s)",
 				t.OptionType,
 				binary.BigEndian.Uint32(t.OptionData[:4]),
 				binary.BigEndian.Uint32(t.OptionData[4:8]),
-				hd)
+				hd,
+			)
 		}
 	}
 	return fmt.Sprintf("TCPOption(%s:%s)", t.OptionType, hd)
@@ -132,19 +136,15 @@ func (t TCPOption) String() string {
 func (t *TCP) MarshalJSON() ([]byte, error) {
 	type Alias TCP
 
-	payloadString, err := json.Marshal(t.Payload)
-
-	if err != nil {
-		return []byte{}, err
-	}
-
-	return json.Marshal(&struct {
-		Alias
-		PayloadString string `json:"payload_string"`
-	}{
-		Alias:       (Alias)(*t),
-		PayloadString: fmt.Sprintf("%s", string(payloadString)),
-	})
+	return json.Marshal(
+		&struct {
+			Alias
+			PayloadString string `json:"payload_string"`
+		}{
+			Alias:         (Alias)(*t),
+			PayloadString: fmt.Sprintf("%s", string(t.Payload)),
+		},
+	)
 }
 
 // LayerType returns gopacket.LayerTypeTCP
