@@ -16,9 +16,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/ip4defrag"
-	"github.com/google/gopacket/layers" // pulls in all layers decoders
+	"github.com/charliemcelfresh/gopacket"
+	"github.com/charliemcelfresh/gopacket/ip4defrag"
+	"github.com/charliemcelfresh/gopacket/layers" // pulls in all layers decoders
 )
 
 var (

@@ -17,8 +17,8 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
+	"github.com/charliemcelfresh/gopacket"
+	"github.com/charliemcelfresh/gopacket/layers"
 	"golang.org/x/sys/windows"
 )
 
