@@ -132,12 +132,18 @@ func (t TCPOption) String() string {
 func (t *TCP) MarshalJSON() ([]byte, error) {
 	type Alias TCP
 
+	payloadString, err := json.Marshal(t.Payload)
+
+	if err != nil {
+		return []byte, err
+	}
+
 	return json.Marshal(&struct {
 		Alias
 		PayloadString string `json:"payload_string"`
 	}{
 		Alias:       (Alias)(*t),
-		PayloadString: fmt.Sprintf("%s", string(t.Payload)),
+		PayloadString: fmt.Sprintf("%s", string(payloadString)),
 	})
 }
 
