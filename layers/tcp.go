@@ -127,6 +127,19 @@ func (t TCPOption) String() string {
 	return fmt.Sprintf("TCPOption(%s:%s)", t.OptionType, hd)
 }
 
+// Custom JSON Marshaller lets us see the payload
+func (t *TCP) MarshalJSON() ([]byte, error) {
+	type Alias TCP
+
+	return json.Marshal(&struct {
+		Alias
+		PayloadString string `json:"payload_string"`
+	}{
+		Alias:       (Alias)(*t),
+		PayloadString: fmt.Sprintf("%v", t.Payload),
+	})
+}
+
 // LayerType returns gopacket.LayerTypeTCP
 func (t *TCP) LayerType() gopacket.LayerType { return LayerTypeTCP }
 
